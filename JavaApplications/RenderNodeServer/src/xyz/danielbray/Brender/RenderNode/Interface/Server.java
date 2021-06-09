@@ -44,6 +44,7 @@ public class Server {
 		httpServer = HttpServer.create(inetSocAddr, 0);
 		httpServer.createContext("/status", new ServerStatus());
 		httpServer.createContext("/close", new CloseHandler());
+		httpServer.createContext("/upload", new FileAccepter());
 		httpServer.setExecutor(null);
 		httpServer.start();
 	}

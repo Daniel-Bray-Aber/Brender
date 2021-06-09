@@ -1,8 +1,6 @@
 function get_status()
 {
-    
-    addressBox = document.getElementById("addressBox")
-    let url = "http://" + addressBox.value + "/status"
+    let url = get_address() + "/status"
 
     let label = document.getElementById("status")
     label.textContent = "Status: "
@@ -25,8 +23,7 @@ function get_status()
 
 function close_server()
 {
-    addressBox = document.getElementById("addressBox")
-    let url = "http://" + addressBox.value + "/close"
+    let url = get_address() + "/close"
 
     let label = document.getElementById("status")
     label.textContent = "Status: "
@@ -42,4 +39,40 @@ function close_server()
     .catch(function (error) {
         console.log("Error:" + error);
     })
-}        
+}
+
+function send_file_action() {
+    let fc = document.getElementById("fileChooser");
+    if(fc.files.length > 0) {
+        send_file(fc.files[0])
+    } else {
+        alert("Please select file")
+    }
+}
+
+function send_file(file) {
+    let url = get_address() + "/upload"
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/octet-stream"
+        },
+        body: file
+    })
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(json) {
+        console.log(json)
+    })
+    .catch(function(error) {
+        console.log("error: " + error)
+    })
+
+}
+
+function get_address() {
+    addressBox = document.getElementById("addressBox")
+    return "http://" + addressBox.value
+}
