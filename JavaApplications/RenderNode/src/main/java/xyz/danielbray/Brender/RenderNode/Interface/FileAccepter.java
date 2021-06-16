@@ -15,7 +15,6 @@ public class FileAccepter implements HttpHandler {
 
 	@Override
 	public void handle(HttpExchange ex) throws IOException {
-		
 		switch(ex.getRequestMethod())
 		{
 		case "POST":
@@ -25,26 +24,6 @@ public class FileAccepter implements HttpHandler {
 			handleOPTIONS(ex);
 			break;
 		}
-		
-		/*
-		if(ex.getRequestMethod().equals("POST"))
-		{
-			BlenderFile bf = new BlenderFile(ex.getRequestBody());
-			System.out.println(bf.getFile().getAbsolutePath());
-		}	
-		
-		String response = "{\"fileAccept\":\"yes\"}";
-		Headers headers = ex.getResponseHeaders();
-		
-		headers.set("Content-Type", "application/json");
-		headers.add("Access-Control-Allow-Origin", "*");
-		headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
-        headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization");
-		
-		ex.sendResponseHeaders(200, response.length());
-		OutputStream os = ex.getResponseBody();
-		os.write(response.getBytes());
-		os.close();*/
 	}
 	
 	private void handlePOST(HttpExchange ex) throws IOException
